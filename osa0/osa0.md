@@ -48,17 +48,9 @@ end note
 
 ## 0.6
 
-selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
-palvelin-->selain: statuskoodi 201 created
-
 note over selain:
 Lomakkeen tiedot lähettää selaimen lataaman Javascript-tiedoston koodi eikä selaimen normaali lomakkeiden lähetysmekanismi
 end note
 
-selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
-palvelin-->selain: [{ content: "HTML on helppoa", date: "2019-01-01" }, ...]
-
-note over selain:
-selain suorittaa tapahtumankäsittelijän
-joka renderöi muistiinpanot näytölle
-end note
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+palvelin-->selain: statuskoodi 201 created
