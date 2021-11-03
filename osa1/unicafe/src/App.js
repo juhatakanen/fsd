@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 
-const Display = (props) => <div>{props.text}{props.value}</div>
+const Display = (props) => {
+  if (isNaN(props.value)) return <div>{props.text}0</div>
+return <div>{props.text}{props.value}{props.percent}</div>
+}
 
 const Button = (props) => (<button onClick={props.handleClick}>{props.text}</button>)
 
@@ -9,7 +12,7 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-
+  const percent = '%'
   return (
     <div>
       <h1>give feedback</h1>
@@ -20,6 +23,9 @@ const App = () => {
       <Display text="good " value={good} />
       <Display text="neutral " value={neutral} />
       <Display text="bad " value={bad} />
+      <Display text="all " value={good + neutral + bad } />
+      <Display text="average " value={(good - bad) / (good + bad)} percent={percent} />
+      <Display text="positive " value={(good / (good + neutral + bad)) * 100 } percent={percent} />
     </div>
   )
 }
