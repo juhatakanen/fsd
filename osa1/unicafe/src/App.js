@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 
-const Display = ({ value, text, percent }) => {
-  if (isNaN(value)) return <div>{text}0</div>
-return <div>{text}{value}{percent}</div>
-}
+const Display = ({ value, text, percent }) => <div>{text}{value}{percent}</div>
 
 const Button = ({ handleClick, text }) => 
 <button onClick={handleClick}>{text}</button>
 
-
 const Statistics = ({ good, neutral, bad }) => {
+if ((good === 0) && (neutral === 0) && (bad === 0)) return (
+<div>
+<h1>statistics</h1>
+<Display text="No feedback given" /> 
+</div>
+)
 return (
 <div>
 <h1>statistics</h1>
