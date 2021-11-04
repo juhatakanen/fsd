@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -11,9 +10,11 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code aleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.'
   ]
-  let random = Math.floor(Math.random() * 7)
-  console.log('random before correction', {random})
+  
   const [selected, setSelected] = useState(Math.floor(Math.random() * 7))
+  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0, 0])
+  
+  let random = Math.floor(Math.random() * 7)
   if (random === selected) {
     random++
     if (random === 7) {
@@ -23,12 +24,19 @@ const App = () => {
       random+=2
     }
   }
-  const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0, 0])
-  console.log('selected:', {selected})
-  console.log('random', {random})
-  console.log(votes)
+  
+  let mostVotes = votes[0];
+  let mostVotesIndex = 0;
+  for (let i = 1; i < votes.length; i++) {
+      if (votes[i] > mostVotes) {
+           mostVotesIndex = i;
+          mostVotes = votes[i];
+        }
+  }
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}<br />
       has {votes[selected]} votes
       <div>
@@ -44,6 +52,8 @@ const App = () => {
       text='vote'/>
       <Button handleClick={() => setSelected(random)} text='next anecdote'/>
       </div>
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[mostVotesIndex]}
     </div>
   )
 }
