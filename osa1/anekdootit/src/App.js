@@ -20,9 +20,6 @@ const App = () => {
     if (random === 7) {
       random-=2
     }
-    if (random === -1) {
-      random+=2
-    }
   }
   
   let mostVotes = votes[0];
