@@ -45,7 +45,7 @@ const Header = ({course}) => {
     const exercises = parts.map(part => part.exercises)
     return (
       <div>
-        <p>Number of exercises {exercises.reduce((prev, cur) => prev + cur)}</p>
+        <p>Total of {exercises.reduce((prev, cur) => prev + cur)} exercises</p>
       </div>
     )
   }
