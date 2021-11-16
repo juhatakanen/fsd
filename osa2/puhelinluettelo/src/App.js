@@ -12,9 +12,17 @@ const App = () => {
     const personObject = {
       name: newName
     }
-    setPersons(persons.concat(personObject))
+    const filtered = persons.filter(p => p.name === newName)
+    
+    if (filtered.length > 0) {
+      alert(`${newName} is already in phonebook`)
+    }
+    else {
+      setPersons(persons.concat(personObject))
     setNewName('')
+    }
   }
+
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
@@ -22,8 +30,6 @@ const App = () => {
 
   return (
     <div>
-      {/* <div>debug: {persons}</div> */}
-
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
