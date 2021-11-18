@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
-import Person from './components/Person'
+import Persons from './components/Persons'
 
 const App = () => {
   const [ persons, setPersons] = useState([
@@ -15,7 +15,6 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ search, setSearch] = useState('')
 
-  
   const personsToShow = search.length === 0
     ? persons
     : persons.filter(person => person.name.toLowerCase().includes(search.toLowerCase()));
@@ -33,8 +32,8 @@ const App = () => {
     }
     else {
       setPersons(persons.concat(personObject))
-    setNewName('')
-    setNewNumber('')
+      setNewName('')
+      setNewNumber('')
     }
   }
 
@@ -56,9 +55,7 @@ const App = () => {
       <PersonForm addPerson={addPerson}
       newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h3>Numbers</h3>
-      <ul>
-      {personsToShow.map(person => <Person key={person.name} person={person}/>)}
-      </ul>
+      <Persons personsToShow={personsToShow}/>
     </div>
   )
 }
