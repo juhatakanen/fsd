@@ -13,7 +13,7 @@ const languagesArray = Object.values(languagesObject);
             </ul>
             <h2>Languages</h2>
             <ul>
-                {languagesArray.map(language => <li>{language}</li>)}
+                {languagesArray.map(language => <li key={language}>{language}</li>)}
             </ul>
             <div className='flag'>{country[0].flag}</div>
         </div>
