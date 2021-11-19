@@ -16,6 +16,10 @@ const App = () => {
     })
   }, [])
 
+  const countriesToShow = search.length === 0
+  ? countries
+  : countries.filter(country => country.name.common.toLowerCase().includes(search.toLowerCase()))
+
   const handleSearchChange = (event) => {
     setSearch(event.target.value)
   }
@@ -23,7 +27,7 @@ const App = () => {
   return (
     <div className="App">
       <Filter search={search} handleSearchChange={handleSearchChange}/>
-      <Countries countries={countries}/>
+      <Countries countriesToShow={countriesToShow}/>
     </div>
   );
 }

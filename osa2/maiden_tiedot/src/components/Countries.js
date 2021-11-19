@@ -1,10 +1,11 @@
 import React from "react";
 import Country from "./Country";
 
-const Countries = ({ countries }) => {
+const Countries = ({ countriesToShow }) => {
+    console.log(countriesToShow);
     return (
         <ul>
-            {countries.map(country => <Country key={country.name.common} country={country.name.common}/>)}
+            {countriesToShow.map(country => <Country key={country.name.common} country={country.name.common}/>)}
         </ul>
     )
 }
