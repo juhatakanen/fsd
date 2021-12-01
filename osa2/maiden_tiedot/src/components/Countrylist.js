@@ -1,10 +1,13 @@
 import React from "react";
+import App from "../App";
 
-const Country = ({ country }) => {
+const Country = ({ country, setSearch }) => {
     return (
         <div>
         <p>
-            {country} <button>show</button>
+            {country} <button onClick={() => {
+                setSearch(country)}}>show</button>
+            
         </p>
         </div>
     )
