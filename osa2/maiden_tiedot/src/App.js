@@ -16,6 +16,7 @@ const App = () => {
     })
   }, [])
 
+
   const countriesToShow = search.length === 0
   ? countries
   : countries.filter(country => country.name.common.toLowerCase().includes(search.toLowerCase()))
