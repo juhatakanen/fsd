@@ -46,7 +46,6 @@ const App = () => {
         setNewName('')
         setNewNumber('')
       })
-      
     }
   }
 
@@ -68,7 +67,7 @@ const App = () => {
       <PersonForm addPerson={addPerson}
       newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h3>Numbers</h3>
-      <Persons personsToShow={personsToShow}/>
+      <Persons personsToShow={personsToShow} setPersons={setPersons}/>
     </div>
   )
 }
