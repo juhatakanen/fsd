@@ -6,11 +6,13 @@ import personService from '../services/persons'
 const Persons = ({ personsToShow, setPersons }) => {
   const deletePerson = id => {
     const person = personsToShow.find(p => p.id === id)
+    if (window.confirm(`Delete ${person.name}?`)) {
   
     personService
     .deletePerson(person.id)
     setPersons(personsToShow.filter(p => p.id !== id))
   }
+}
   return (
     <ul>
       {personsToShow.map(person => <Person key={person.name} person={person} deletePerson={() => deletePerson(person.id) }/>)}
