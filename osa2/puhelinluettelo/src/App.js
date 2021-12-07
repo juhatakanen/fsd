@@ -3,6 +3,7 @@ import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 import personService from './services/persons'
 
 
@@ -11,17 +12,16 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ search, setSearch] = useState('')
+  const [ successMessage, setSuccessMessage] = useState(null)
+
 
   useEffect(() => {
-    console.log('effect')
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
-        console.log('promise fulfilled')
         setPersons(response.data)
       })
   }, [])
-  console.log('render', persons.length, 'persons')
 
   const personsToShow = search.length === 0
     ? persons
@@ -37,19 +37,13 @@ const App = () => {
     
     if (filtered.length > 0) {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
-        // const note = notes.find(n => n.id === id)
         const changedPerson = { ...filtered[0], number: newNumber }
       
         personService
           .update(filtered[0].id, changedPerson).then(returnedPerson => {
             setPersons(persons.map(person => person.name !== newName ? person : returnedPerson))
           })
-          // .catch(error => {
-          //   alert(
-          //     `the note '${note.content}' was already deleted from server`
-          //   )
-          //   setNotes(notes.filter(n => n.id !== id))
-          // })
+       
       }
     }
     else {
@@ -59,6 +53,12 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
+        setSuccessMessage(
+          `Added ${returnedPerson.name}`
+        )
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 5000)
       })
     }
   }
@@ -76,6 +76,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={successMessage}/>
       <Filter filter={search} handleSearchChange={handleSearchChange}/>
         <h3>Add a new</h3>
       <PersonForm addPerson={addPerson}
