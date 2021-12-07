@@ -36,7 +36,21 @@ const App = () => {
     const filtered = persons.filter(p => p.name === newName)
     
     if (filtered.length > 0) {
-      alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        // const note = notes.find(n => n.id === id)
+        const changedPerson = { ...filtered[0], number: newNumber }
+      
+        personService
+          .update(filtered[0].id, changedPerson).then(returnedPerson => {
+            setPersons(persons.map(person => person.name !== newName ? person : returnedPerson))
+          })
+          // .catch(error => {
+          //   alert(
+          //     `the note '${note.content}' was already deleted from server`
+          //   )
+          //   setNotes(notes.filter(n => n.id !== id))
+          // })
+      }
     }
     else {
       personService
