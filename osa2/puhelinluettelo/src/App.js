@@ -12,7 +12,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ search, setSearch] = useState('')
-  const [ successMessage, setSuccessMessage] = useState(null)
+  const [ message, setMessage] = useState(null)
 
 
   useEffect(() => {
@@ -40,10 +40,19 @@ const App = () => {
         const changedPerson = { ...filtered[0], number: newNumber }
       
         personService
-          .update(filtered[0].id, changedPerson).then(returnedPerson => {
+          .update(filtered[0].id, changedPerson)
+          .then(returnedPerson => {
             setPersons(persons.map(person => person.name !== newName ? person : returnedPerson))
           })
-       
+          .catch(error => {
+            setMessage(
+              `Information of '${newName}' has already been removed from server`
+            )
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+          }) 
+          setPersons(personsToShow.filter(p => p.id !== filtered[0].id))       
       }
     }
     else {
@@ -53,11 +62,11 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
-        setSuccessMessage(
+        setMessage(
           `Added ${returnedPerson.name}`
         )
         setTimeout(() => {
-          setSuccessMessage(null)
+          setMessage(null)
         }, 5000)
       })
     }
@@ -76,13 +85,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={successMessage}/>
+      <Notification message={message}/>
       <Filter filter={search} handleSearchChange={handleSearchChange}/>
         <h3>Add a new</h3>
       <PersonForm addPerson={addPerson}
       newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h3>Numbers</h3>
-      <Persons personsToShow={personsToShow} setPersons={setPersons}/>
+      <Persons personsToShow={personsToShow} setPersons={setPersons} setMessage={setMessage}/>
     </div>
   )
 }
