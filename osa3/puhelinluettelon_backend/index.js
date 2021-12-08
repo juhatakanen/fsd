@@ -60,9 +60,15 @@ const generateId = () => {
 
 app.post('/api/persons', (request, response) => {
   const personToAdd = request.body
-  if (!personToAdd.name) {
+  const namesInArray = persons.map(p => p.name)
+  if (!personToAdd.name || !personToAdd.number) {
     return response.status(400).json({ 
-      error: 'name missing' 
+      error: 'name or number missing missing' 
+    })
+  }
+  if (namesInArray.includes(personToAdd.name)) {
+    return response.status(400).json({ 
+      error: 'name already in phonebook' 
     })
   }
 
