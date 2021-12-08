@@ -12,10 +12,20 @@ const Persons = ({ personsToShow, setPersons, setMessage }) => {
     .deletePerson(person.id)
     .then(response => {
       setPersons(personsToShow.filter(n => n.id !== person.id))
+      setMessage({
+        message: `Deleted ${person.name}`,
+        className: 'success'
+      }
+      )
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     })
     .catch(error => {
-      setMessage(
-        `Information of '${person.name}' has already been removed from server`
+      setMessage({
+        message: `Information of '${person.name}' has already been removed from server`,
+        className: "failure"
+      }
       )
       setTimeout(() => {
         setMessage(null)

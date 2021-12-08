@@ -43,10 +43,20 @@ const App = () => {
           .update(filtered[0].id, changedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.name !== newName ? person : returnedPerson))
+            setMessage({
+              message: `Updated ${returnedPerson.name}`,
+              className: 'success'
+            }
+            )
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
           })
           .catch(error => {
-            setMessage(
-              `Information of '${newName}' has already been removed from server`
+            setMessage({
+              message: `Information of '${newName}' has already been removed from server`,
+              className: "failure"
+            }
             )
             setTimeout(() => {
               setMessage(null)
@@ -62,8 +72,10 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
-        setMessage(
-          `Added ${returnedPerson.name}`
+        setMessage({
+          message: `Added ${returnedPerson.name}`,
+          className: 'success'
+        }
         )
         setTimeout(() => {
           setMessage(null)
