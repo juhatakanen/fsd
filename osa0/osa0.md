@@ -31,7 +31,7 @@ palvelin-->selain: HTML-koodi
 selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
 palvelin-->selain: main.css
 selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
-palvelin-->selain: main.js
+palvelin-->selain: spa.js
 
 note over selain:
 selain alkaa suorittaa js-koodia
